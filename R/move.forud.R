@@ -12,7 +12,8 @@
 #'\code{brownian.bridge.dyn()} of the UD over the raster extent. \code{move.forud} does not use all the memory in the system #'as did \code{move.contour} which saved the objects for one batch export of the shapefiles. \code{move.forud} #'is not particularly any more efficient than \code{move.contour}, but if you have a large raster extent and #'many individual time step utilization distributions that are being estimated, \code{move.forud}
 #'does not stack all the raster files in memory, causing issues.
 #'
-#'I thought that vectorisation would speed this up, but the vast majority of the time is spend in the call to #'\code{brownian.bridge.dyn()} and not the rest of the for loop.  So, I am working on some ways to reduce the #'background raster on which the contour estimates are created as there are alot of them that are way outside #'the range of useful at the individual time-step level, but when you look at the entire period which \code{brow#'nian.bridge.dyn} does, are actually useful. Think of it as pulling one hour worth of movements out of a year #'worth of GPS locations, it is likely that the 50m in that hour is a small segment of the overall range and #'hence background raster size.
+#'I thought that vectorisation would speed this up, but the vast majority of the time is spend in the call to #'\code{brownian.bridge.dyn()} and not the rest of the for loop.  So, I am working on some ways to reduce the
+#'background raster on which the contour estimates are created as there are alot of them that are way outside #'the range of useful at the individual time-step level, but when you look at the entire period which \code{brow#'nian.bridge.dyn} does, are actually useful. Think of it as pulling one hour worth of movements out of a year #'worth of GPS locations, it is likely that the 50m in that hour is a small segment of the overall range and #'hence background raster size.
 #'
 #' As an aside, I do know that it is better to access values in slots using slot(object, 'name') versus the '@@' #'sign, but, the routine I used to pull the requisite values from the DDBMvar object would not work as the data #'necessary does not have slot values assigned to it at this time.
 #'
@@ -23,8 +24,8 @@
 #' @param ts, time step for integration of \code{brownian.bridge.dyn()} object
 #' @param ras, raster background size for \code{brownian.bridge.dyn()} object
 #' @param le, location error value for \code{location.error=} used in a typical dbbmm object
-#' @param lev, level of the UD contour as a vector, c(50, 95) that the user is interested in.   Will work with #' multiple values (e.g., c(50, 95)) and will label those values
-#' in the resultant shapefile.  Note that you don't have to put these values in as percentages (e.g., 0.50 for #' 50 percent).
+#' @param lev, level of the UD contour as a vector, c(.50, .95) that the user is interested in.   Will work with #' multiple values (e.g., c(.50, .)) and will label those values
+#' in the resultant shapefile.  Note that you have to put these values in as decimal (e.g., 0.50 for #' 50 percent).
 #' @param crs, coordinate reference system for identifying where the polygons are located.  Uses standard \code{CRS} structure within quotes: CRS("+proj=longlat +datum=NAD83")
 #' @param path, file path (e.g., "C:/") using standard R path nomenclature specifying the location that the #'output shapefiles are to be written.  Note that the call to \code{writeOGR} does not
 #' accept the path to use the final '/' in the path nomenclature (e.g. "C:/TestLocation is fine as path is being pasted into the \code{dsn=} portion of \code{writeOGR} or if you assign path= to a

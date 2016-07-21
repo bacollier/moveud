@@ -1,3 +1,8 @@
+moveud 1.1.0 (21 July 2016)
+--------------------------
+*General update to ensure compatability with new R version and rebuilt in RStudio.
+*Committed moveud to github (bacollier/moveud)
+
 moveud 1.1.0 (26 May 2016)
 --------------------------
 *General update to ensure compatability with new R version and rebuilt in RStudio.
